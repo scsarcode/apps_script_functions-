@@ -27,7 +27,8 @@ parseToSheet
 
 */
 
-// v1.1.1
+// v1.1.2
+// col1 col2
 function getSheetData(spreadSheet, target_sheet_name, sheet_params) {
     const params_true_lr_all_empty = 'all-empty'
     const params = {
@@ -43,7 +44,10 @@ function getSheetData(spreadSheet, target_sheet_name, sheet_params) {
     if (params.fixed_headers < params.headers_num) {
         params.fixed_headers = params.headers_num
     }
-    const sheet = spreadSheet.getSheetByName(target_sheet_name) || 'error'
+    const sheet = spreadSheet.getSheetByName(target_sheet_name)
+    if (!sheet) {
+        throw new Error(`getSheetByName: no sheet ${target_sheet_name}`)
+    }
     let sheetData = {};
     sheetData['sheet'] = sheet
     sheetData['sheetName'] = target_sheet_name
@@ -100,6 +104,7 @@ function getSheetData(spreadSheet, target_sheet_name, sheet_params) {
         this.ReplacedRows = sheetData_obj
         return this
     }
+
 
     sheetData['getMergedData'] = function (obj_modified) {
         if (!obj_modified && !this.ReplacedRows) {
@@ -199,6 +204,7 @@ function getSheetData(spreadSheet, target_sheet_name, sheet_params) {
         })
         return output_obj_
     }
+
     return sheetData
 }
 
