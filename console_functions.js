@@ -15,3 +15,15 @@ function cs(variable, symbol = '=', qty = 10) {
     console.log(filler.join('') + ' ' + func_name + ' ' + filler.join(''));
     console.log(Object.values(variable)[0]);
 }
+
+function cl(v){
+    console.log(`${v}`);
+}
+
+function ct(m='track_time'){
+    console.time(m);
+}
+
+function cte(m='track_time'){
+    console.timeEnd(m);
+}
