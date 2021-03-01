@@ -27,7 +27,7 @@ parseToSheet
 
 */
 
-// v1.1.2
+// v1.1.3
 // col1 col2
 function getSheetData(spreadSheet, target_sheet_name, sheet_params) {
     const params_true_lr_all_empty = 'all-empty'
@@ -70,7 +70,7 @@ function getSheetData(spreadSheet, target_sheet_name, sheet_params) {
         sheetData['Obj'] = _createObjectWithHeaders()
     }
 
-    sheetData['getMappedColumn'] = function (col_name) {
+    sheetData['getMappedColumn'] = function (col_name, filter) {
         if (!col_name) {
             throw new Error(`getMappedColumn: Column Name is NOT DEFINED!`)
         }
@@ -79,7 +79,7 @@ function getSheetData(spreadSheet, target_sheet_name, sheet_params) {
             throw new Error(`getMappedColumn: Column ${col_name} NOT FOUND!`)
         }
         const mapped_col = this.Values.map(r => r[col_index]).slice(this.sheetParams.headers_num)
-        return mapped_col
+        return filter ? mapped_col.filter(r => r !== '') : mapped_col
     }
 
     sheetData['replaceValuesInRows'] = function (new_rows_obj, by_col_name) {
